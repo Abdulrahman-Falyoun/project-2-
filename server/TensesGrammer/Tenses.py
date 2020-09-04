@@ -56,6 +56,7 @@ def past_simple(doc):
     return doc,explain
 # print(past_simple('adam (win) another prize in 1999 and he is very proud '))
 def present_perfect(doc):
+    print(doc)
     explain=['Present Perfect Tense']
     explain.append('as you notice the tense is present perfect so we use auxiliary verbs like has have')
     explain.append('and because it is perfect we use the verb 3 ')
@@ -68,24 +69,19 @@ def present_perfect(doc):
             explain.append('then we get its verb 3 from the unregular verbs list')
             verb = re.search(r"{}".format(verb), str(unregular_verbs))
             verb = verb.group(0)
-            for k, v in dict_v2.items():
+            for k, v in dict_v3.items():
                 if k == verb:
-                    v2 = v
-                    for k_1, v_1 in dict_v3.items():
-                        if k_1 == v2:
-                            dic[i] = v_1
-                            if re.search(r'{}'.format(i), ' he she it He She It ') != None:
-                                explain.append('if our subject is he or she or it or its relevence we use has ')
-                                explain.append(f'has {dic[i]}')
-                                doc = re.sub(r'{}'.format(verb), r'has {}'.format(dic[i]), str(doc))
-                                doc = re.sub(r'\(|\)', r'', str(doc))
-                            else:
-                                explain.append('if our subject is we or they or you or I or its relevence we use heve ')
-                                explain.append(f'have {dic[i]}')
-                                doc = re.sub(r'{}'.format(verb), r'have {}'.format(dic[i]), str(doc))
-                                doc = re.sub(r'\(|\)', r'', str(doc))
-                        else:
-                            pass
+                    dic[i] = v
+                    if re.search(r'{}'.format(i), ' he she it He She It ') != None:
+                        explain.append('if our subject is he or she or it or its relevence we use has ')
+                        explain.append(f'has {dic[i]}')
+                        doc = re.sub(r'{}'.format(verb), r'has {}'.format(dic[i]), str(doc))
+                        doc = re.sub(r'\(|\)', r'', str(doc))
+                    else:
+                        explain.append('if our subject is we or they or you or I or its relevence we use heve ')
+                        explain.append(f'have {dic[i]}')
+                        doc = re.sub(r'{}'.format(verb), r'have {}'.format(dic[i]), str(doc))
+                        doc = re.sub(r'\(|\)', r'', str(doc))
         else:
             explain.append('here as you notice the verb is a regular verb')
             explain.append('so we add ed in the end of the verb whatever the subject is')
@@ -98,7 +94,6 @@ def present_perfect(doc):
                 explain.append('if our subject is we or they or you or its relevence we use heve ')
                 doc = re.sub(r'{}'.format(verb), r'have {}'.format(dic[i]), str(doc))
                 doc = re.sub(r'\(|\)', r'', str(doc))
-
     return doc,explain
 # print(present_perfect('She (go) abroad just'))
 def present_continuous(doc):
@@ -160,18 +155,13 @@ def past_perfect(doc):
             explain.append('then we get its verb 3 from the unregular verbs list')
             verb = re.search(r"{}".format(verb), str(unregular_verbs))
             verb = verb.group(0)
-            for k, v in dict_v2.items():
+            for k, v in dict_v3.items():
                 if k == verb:
-                    v2 = v
-                    for k_1, v_1 in dict_v3.items():
-                        if k_1 == v2:
-                            dic[i] = v_1
-                            explain.append(' we use had whatever the subject is because it is past tense')
-                            explain.append(f'had {dic[i]}')
-                            doc = re.sub(r'{}'.format(verb), r'had {}'.format(dic[i]), str(doc))
-                            doc = re.sub(r'\(|\)', r'', str(doc))
-                        else:
-                            pass
+                    dic[i] = v
+                    explain.append(' we use had whatever the subject is because it is past tense')
+                    explain.append(f'had {dic[i]}')
+                    doc = re.sub(r'{}'.format(verb), r'had {}'.format(dic[i]), str(doc))
+                    doc = re.sub(r'\(|\)', r'', str(doc))
         else:
             explain.append('here as you notice the verb is a regular verb')
             explain.append('so we use the verb-ed whatever the subject is because it is past tense')
@@ -221,18 +211,13 @@ def perfect_future(doc):
             explain.append('then we get its verb 3 from the unregular verbs list')
             verb = re.search(r"{}".format(verb), str(unregular_verbs))
             verb=verb.group(0)
-            for k,v in dict_v2.items():
+            for k,v in dict_v3.items():
                 if k==verb:
-                    v2=v
-                    for k_1,v_1 in dict_v3.items():
-                        if k_1==v2:
-                            dic[i]=v_1
-                            explain.append('also we add will have before the verb3')
-                            explain.append(f'will have {dic[i]}')
-                            doc = re.sub(r'{}'.format(verb), r'will have {}'.format(dic[i]), str(doc))
-                            doc = re.sub(r'\(|\)',r'',str(doc))
-                        else:
-                            pass
+                    dic[i]=v
+                    explain.append('also we add will have before the verb3')
+                    explain.append(f'will have {dic[i]}')
+                    doc = re.sub(r'{}'.format(verb), r'will have {}'.format(dic[i]), str(doc))
+                    doc = re.sub(r'\(|\)',r'',str(doc))
         else:
             explain.append('here as you notice the verb is a regular verb')
             explain.append('so we add ed in the end of the verb whatever the subject is')
@@ -350,7 +335,6 @@ tenses = [
     }
 
 ]
-
 tensesFinder = [
     {
         "uses": ['SimplePresent','SimplePresentModal_One','SimplePresentModal_Two'],
