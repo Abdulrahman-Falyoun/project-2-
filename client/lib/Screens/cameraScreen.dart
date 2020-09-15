@@ -12,12 +12,14 @@ import 'package:path/path.dart';
 import 'package:async/async.dart';
 
 List<dynamic> solutionWay = [];
+Map<dynamic, dynamic> questionAnswer = {};
+
 Map objectReceived = {};
 File imagefile;
 String newtext = '';
 String solutiontext = '';
 String selectedGrammar = 'Finder';
-String grammar = '';
+String grammar = 'Finder';
 bool istext = false;
 Future response;
 
@@ -309,7 +311,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
                             await http
                                 .post(
-                              "http://192.168.1.4:3000/text",
+                              "http://192.168.1.7:3000/text",
                               headers: {
                                 "Content-type": "application/json",
                                 "Accept": "application/json"
@@ -324,6 +326,10 @@ class _WelcomePageState extends State<WelcomePage> {
                               solutionWay = objectReceived['result way'] != null
                                   ? objectReceived['result way']
                                   : [''];
+                              questionAnswer =
+                                  objectReceived['question'] != null
+                                      ? objectReceived['question']
+                                      : {};
                               print(solutionWay);
                               print(solutiontext);
                             });

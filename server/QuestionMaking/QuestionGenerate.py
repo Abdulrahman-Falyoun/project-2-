@@ -11,7 +11,6 @@ stemmer = LancasterStemmer()
 sentences = []
 disc_sentences = {}
 nondisc_sentences = []
-final_result = []
 
 aux_list = ['am', 'are', 'is', 'was', 'were', 'can', 'could', 'does', 'do', 'did', 'has', 'had', 'may', 'might', 'must',
             'need', 'ought', 'shall', 'should', 'will', 'would']
@@ -31,10 +30,9 @@ def QuestionGenerater(data):
     global sentences
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     sentences = tokenizer.tokenize(data)
-    discourse()
+    return discourse()
 
 def generate_question(question_part, type):
-    final_result.append(type)
     question_part = question_part[0].lower() + question_part[1:]
     if (question_part[-1] == '.' or question_part[-1] == ','):
         question_part = question_part[:-1]
@@ -303,9 +301,11 @@ def discourse():
             questions.append([sentence, q])
         l = generate_one_word_questions(question_part)
         questions += [[sentence, i] for i in l]
-    for pair in questions:
-        final_result.append({"answer":pair[0],"question":pair[1]})
 
-    print(final_result)
-    return final_result
+
+    return questions[-1][1]
+
+print(QuestionGenerater('He is a doctor .'))
+print(QuestionGenerater('I play when i see .'))
+
 

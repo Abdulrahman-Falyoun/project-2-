@@ -38,7 +38,7 @@ class _ButtonInBottomState extends State<ButtonInBottom> {
                     height: 180,
                     child: Center(
                       child: Text(
-                        '${(solutionWay == null) ? solutiontext : solutionWay[0]}',
+                        '${solutionWay != null ? solutionWay[0] : solutiontext}',
                         style: englishnormaltextstyle,
                       ),
                     ),
