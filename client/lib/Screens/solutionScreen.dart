@@ -38,15 +38,17 @@ class Solution extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  children: solutionWay.map<Widget>((document) {
-                    return ListTile(
-                      title: Text(
-                        document,
-                        textAlign: TextAlign.center,
-                        style: englishnormaltextstyle,
-                      ),
-                    );
-                  }).toList(),
+                  children: solutionWay != null
+                      ? solutionWay.map<Widget>((document) {
+                          return ListTile(
+                            title: Text(
+                              document,
+                              textAlign: TextAlign.center,
+                              style: englishnormaltextstyle,
+                            ),
+                          );
+                        }).toList()
+                      : solutiontext,
                 ),
               ),
             ),

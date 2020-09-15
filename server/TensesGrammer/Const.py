@@ -7,7 +7,7 @@ consonant = nlp1('b c d f g h j k l m n p q r s t v w x y z')
 vowel = nlp1('a e i u o ')
 pronouns=nlp1('it he she they you we I')
 special_verbs = nlp1('age agree disagree dye free knee refere singe tiptoe')
-special_words = nlp1('while when before after')
+special_words = nlp1('while when before after because until')
 
 
 dict_v2={'be':'was','bear':'bore','beat':'beat','become':'became','begin':'began','bend':'bent','bet':'bet','bid':'bid',

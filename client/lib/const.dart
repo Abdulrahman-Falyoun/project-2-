@@ -29,4 +29,4 @@ const RoundedRectangleBorder appbarborder = RoundedRectangleBorder(
   ),
 );
 
-const Color appcolor = Color(0xFFd500f9);
+const Color appcolor = Color(0xFF4db6ac);

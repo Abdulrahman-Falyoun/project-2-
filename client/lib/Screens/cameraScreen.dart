@@ -16,6 +16,8 @@ Map objectReceived = {};
 File imagefile;
 String newtext = '';
 String solutiontext = '';
+String selectedGrammar = 'Finder';
+String grammar = '';
 bool istext = false;
 Future response;
 
@@ -45,6 +47,29 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  DropdownButton<String> androidDropdown() {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+    for (String Grammar in ["Finder", "Conjunction", "Question"]) {
+      var newItem = DropdownMenuItem(
+        child: Text(Grammar),
+        value: Grammar,
+      );
+      dropdownItems.add(newItem);
+    }
+
+    return DropdownButton<String>(
+      value: selectedGrammar,
+      items: dropdownItems,
+      onChanged: (value) {
+        setState(() {
+          selectedGrammar = value;
+          grammar = selectedGrammar;
+          print(grammar);
+        });
+      },
+    );
+  }
+
   void openImagePicker(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -127,6 +152,7 @@ class _WelcomePageState extends State<WelcomePage> {
 //        "image": image != null
 //            ? 'data:image/png;base64,' + base64Encode(image.readAsBytesSync())
 //            : '',
+//     "grammar":grammar
 //      }),
 //    )
 //        .then((http.Response response) {
@@ -162,6 +188,14 @@ class _WelcomePageState extends State<WelcomePage> {
           flex: 4,
           child: Padding(
             padding: EdgeInsets.all(10.0),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: androidDropdown(),
+            ),
           ),
         ),
         Expanded(
@@ -270,23 +304,29 @@ class _WelcomePageState extends State<WelcomePage> {
                           onPressed: () async {
                             final Map<String, dynamic> imagedata = {
                               "text": newtext,
+                              "grammar": grammar
                             };
-//                            await http
-//                                .post(
-//                              "http://192.168.1.3:3000/text",
-//                              headers: {
-//                                "Content-type": "application/json",
-//                                "Accept": "application/json"
-//                              },
-//                              body: json.encode(imagedata),
-//                            )
-//                                .then((http.Response response) {
-//                              objectReceived = json.decode(response.body);
-//                              solutiontext = objectReceived['result'];
-//                              solutionWay = objectReceived['result way'];
-//                              print(solutionWay);
-//                              print(solutiontext);
-//                            });
+
+                            await http
+                                .post(
+                              "http://192.168.1.4:3000/text",
+                              headers: {
+                                "Content-type": "application/json",
+                                "Accept": "application/json"
+                              },
+                              body: json.encode(imagedata),
+                            )
+                                .then((http.Response response) {
+                              objectReceived = json.decode(response.body);
+                              solutiontext = objectReceived['result'] != ''
+                                  ? objectReceived['result']
+                                  : '';
+                              solutionWay = objectReceived['result way'] != null
+                                  ? objectReceived['result way']
+                                  : [''];
+                              print(solutionWay);
+                              print(solutiontext);
+                            });
                             Navigator.pushNamed(context, '/problem');
                           },
                         ),
